@@ -1,15 +1,53 @@
-//require('dotenv').config() // ew can writhe it like below linw also
-import dotenv from "dotenv"
-//import mongoose from "mongoose";
-//import { DB_NAME } from "./constant";  // IMPORT THE DATA BASE FROM CONSTANT FILE
+// index.js
+
+// 🔹 dotenv ko import karte hain
+// dotenv ka use .env file ki values (PORT, DB URL) ko load karne ke liye hota hai
+
+import dotenv from "dotenv";
+
+
+// 🔹 app ko import karte hain (app.js se)
+// app.js me humne express configuration ki thi
+
+import { app } from "/app.js";
+
+
+// 🔹 Database connection function import karte hain
+
 import connectDB from "./db/index.js";
-connectDB()
+
+
+// 🔹 dotenv configuration
+// Ye .env file ko load karega
+
 dotenv.config({
-    path:'./env'
-})
+  path: "./.env"   // ⚠️ yaha ".env" hona chahiye, "env" nahi
+});
 
 
+// 🔹 Database connect karte hain
+// Agar DB connect ho jaye tabhi server start hoga
 
+connectDB()
+  .then(() => {
+
+    // 🔹 Server start karte hain
+
+    app.listen(process.env.PORT || 8000, () => {
+
+      console.log(` Server is running on port: ${process.env.PORT}`);
+
+    });
+
+  })
+
+  .catch((err) => {
+
+    // 🔹 Agar database connect nahi hua
+
+    console.log("MONGODB CONNECTION FAILED", err);
+
+  });
 
 
 

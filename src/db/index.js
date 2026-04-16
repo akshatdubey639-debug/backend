@@ -1,3 +1,7 @@
+//Es file me hmne data base ko cconnect karne ka code likha hao jo ke 
+//index.js me export kr diya
+
+
 import mongoose from "mongoose"
 import {DB_NAME} from "../constant.js"
 
